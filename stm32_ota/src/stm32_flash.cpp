@@ -12,11 +12,9 @@ const auto WRITE_BLOCK_TIMEOUT = 1000;
 
 // STM32 bootloader commands
 const uint8_t WRITE_MEMORY = 0x31;
-const uint8_t ERASE_FLASH = 0x43;
+const uint8_t EXTENDED_ERASE_FLASH = 0x44;
 const uint8_t ENTER_BOOTLOADER = 0x7F;
 const uint8_t ACK = 0x79;
-
-const uint8_t ALL_BLOCKS = 0xFF;
 
 // STM32 memory map
 const uint32_t FLASH_START = 0x08000000;
@@ -45,11 +43,26 @@ void setupStm32(pin_t boot0Pin, pin_t resetPin) {
   pinMode(resetPin, OUTPUT);
 
   // Initialize the UART
-  Serial1.begin(BAUD_RATE);
+  // The STM32 bootloader expects even parity
+  Serial1.begin(BAUD_RATE, SERIAL_PARITY_EVEN);
 }
 
 int performFlashSteps(ApplicationAsset& asset, pin_t boot0Pin, pin_t resetPin) {
   CHECK(enterBootloader(boot0Pin, resetPin));
+
+  // temporary: send the Get command and print all the returned bytes
+  CHECK(sendCommand(0x00));
+  bool hasMore = true;
+  while (hasMore) {
+    waitFor(Serial1.available, 100);
+    if (Serial1.available()) {
+      auto resp = Serial1.read();
+      Serial.printlnf("0x%02x", resp);
+    } else {
+      hasMore = false;
+    }
+  }
+
   CHECK(eraseFlash());
   CHECK(flashBinary(asset));
   return SYSTEM_ERROR_NONE;
@@ -68,7 +81,19 @@ int enterBootloader(pin_t boot0Pin, pin_t resetPin) {
   Serial1.write(ENTER_BOOTLOADER);
 
   // Wait to get acknowledgement
-  return waitForAck(ENTER_BOOTLOADER);
+  for (int i = 0; i < 10; i++) {
+    waitFor(Serial1.available, 100);
+    if (Serial1.available()) {
+      auto resp = Serial1.read();
+      if (resp == ACK) {
+        LOG(INFO, "STM32 in bootloader mode");
+        return SYSTEM_ERROR_NONE;
+      } else {
+        LOG(INFO, "Ignoring unexpected response from STM32: 0x%02x", resp);
+      }
+    }
+  }
+  return SYSTEM_ERROR_TIMEOUT;
 }
 
 void resetStm32(pin_t resetPin) {
@@ -87,10 +112,13 @@ void exitBootloader(pin_t boot0Pin, pin_t resetPin) {
 
 int eraseFlash() {
   LOG(INFO, "Erasing STM32 flash");
-  CHECK(sendCommand(ERASE_FLASH));
-  CHECK(waitForAck(ERASE_FLASH));
-  CHECK(sendCommand(ALL_BLOCKS));
-  CHECK(waitForAck(ERASE_FLASH, ERASE_FLASH_TIMEOUT));
+  CHECK(sendCommand(EXTENDED_ERASE_FLASH));
+
+  // Erase all blocks
+  uint8_t buf[3] = { 0xFF, 0xFF, 0x00 };
+  Serial1.write(buf, sizeof(buf));
+  CHECK(waitForAck(EXTENDED_ERASE_FLASH, ERASE_FLASH_TIMEOUT));
+
   LOG(INFO, "Erased STM32 flash");
   return SYSTEM_ERROR_NONE;
 }

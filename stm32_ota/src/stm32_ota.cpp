@@ -59,8 +59,15 @@ void initStm32() {
   digitalWrite(RESET_PIN, HIGH);
 }
 
+// A Particle function to redo the assets handling on next boot
+int redoAssets(String) {
+    System.assetsHandled(false);
+    return 0;
+}
+
 void setup() {
   initStm32();
+  Particle.function("redo", redoAssets);
 
   Serial.begin();
   delay(1000);
