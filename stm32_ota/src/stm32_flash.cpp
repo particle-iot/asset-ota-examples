@@ -114,7 +114,10 @@ int flashBinary(ApplicationAsset& asset) {
 
   while (asset.available()) {
     uint8_t buf[256];
-    auto read = asset.read((char*) buf, sizeof(buf));
+    int read = 0;
+    while (asset.available() && read < (int)sizeof(buf)) {
+      read += asset.read((char*) &buf[read], sizeof(buf) - read);
+    }
 
     CHECK(writeBlock(address, buf, read));
     address += read;
