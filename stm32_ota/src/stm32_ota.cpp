@@ -12,9 +12,11 @@
 
 SYSTEM_THREAD(ENABLED);
 
-PRODUCT_VERSION(1);
+PRODUCT_VERSION(2);
 
-SerialLogHandler dbg(LOG_LEVEL_ALL);
+SerialLogHandler dbg(LOG_LEVEL_NONE, {
+  { "app", LOG_LEVEL_ALL }
+});
 
 
 // Hardware configuration
@@ -28,22 +30,21 @@ void initStm32();
 // In this case, the asset is the STM32 binary. It will be flashed before the main program starts
 void handleAvailableAssets(spark::Vector<ApplicationAsset> assets) {
   initStm32();
-  Serial.begin();
   delay(1000);
   bool flashed = false;
   for (auto& asset: assets) {
     if (asset.name() == "stm32.bin") {
       // Flash the STM32 binary
-      Serial.println("Flashing STM32 binary");
+      LOG(INFO, "Flashing STM32 from asset");
       flashStm32Binary(asset, BOOT0_PIN, RESET_PIN);
       flashed = true;
     } else {
-      Serial.printlnf("Unknown asset %s", asset.name().c_str());
+      LOG(WARN, "Unknown asset %s", asset.name().c_str());
     }
   }
 
   if (!flashed) {
-    Serial.println("No STM32 binary found");
+    LOG(WARN, "No STM32 binary found in the assets");
   }
   System.assetsHandled(true);
 }
@@ -64,7 +65,7 @@ void setup() {
 
   Serial.begin();
   delay(1000);
-  Serial.println("Setup done");
+  LOG(INFO, "Application starting");
 
   // redo assets handling on next boot for demo purposes
   System.assetsHandled(false);

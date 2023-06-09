@@ -122,14 +122,13 @@ int flashBinary(ApplicationAsset& asset) {
     CHECK(writeBlock(address, buf, read));
     address += read;
   }
-  LOG_PRINT(INFO, "\n");
   LOG(INFO, "Flashed STM32");
 
   return SYSTEM_ERROR_NONE;
 }
 
 int writeBlock(uint32_t address, uint8_t* data, uint16_t size) {
-  LOG_PRINT(INFO, ".");
+  LOG(INFO, "Writing %d bytes to 0x%08x", size, address);
 
   // Send the write command
   CHECK(sendCommand(WRITE_MEMORY));
