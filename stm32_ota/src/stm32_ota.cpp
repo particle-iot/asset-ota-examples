@@ -33,7 +33,7 @@ void handleAvailableAssets(spark::Vector<ApplicationAsset> assets) {
   delay(1000);
   bool flashed = false;
   for (auto& asset: assets) {
-    if (asset.name() == "stm32.bin") {
+    if (asset.name() == "blink.bin") {
       // Flash the STM32 binary
       LOG(INFO, "Flashing STM32 from asset");
       flashStm32Binary(asset, BOOT0_PIN, RESET_PIN);
