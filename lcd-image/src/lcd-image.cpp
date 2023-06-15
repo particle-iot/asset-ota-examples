@@ -41,9 +41,6 @@ void setup() {
 
         // draw the line
         tft.drawRGBBitmap(ILI9341_TFTWIDTH - x - 1, 0, line, 1, ILI9341_TFTHEIGHT);
-
-        // curtain effect
-        delay(10);
       }
       LOG(INFO, "Done drawing splash.img");
     }
