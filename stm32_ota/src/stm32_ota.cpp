@@ -26,9 +26,13 @@ const auto RESET_PIN = SCK;
 
 void initStm32();
 
-// handleAvailableAssets() is called when new firmware assets are available
+// Tell Device OS to call handleAssets() when new firmware assets are available
 // In this case, the asset is the STM32 binary. It will be flashed before the main program starts
-void handleAvailableAssets(spark::Vector<ApplicationAsset> assets) {
+
+void handleAssets(spark::Vector<ApplicationAsset> assets);
+STARTUP(System.onAssetsOta(handleAssets));
+
+void handleAssets(spark::Vector<ApplicationAsset> assets) {
   initStm32();
   delay(1000);
   bool flashed = false;
