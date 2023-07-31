@@ -16,8 +16,13 @@ SerialLogHandler dbg(LOG_LEVEL_NONE, {
   { "app", LOG_LEVEL_ALL }
 });
 
+#if PLATFORM_ID == PLATFORM_P2
 const auto TFT_DC = S4;
 const auto TFT_CS = S3;
+#else
+const auto TFT_DC = A4;
+const auto TFT_CS = A5;
+#endif
 
 Adafruit_ILI9341 tft(TFT_CS, TFT_DC);
 
@@ -34,10 +39,7 @@ void setup() {
         // each pixel is a 16 bit value, with the RGB values packed 5 bits for red, 6 bits for green, 5 bits for blue
         uint16_t line[ILI9341_TFTHEIGHT] = { 0 };
         char* buf = (char*) line;
-        int read = 0;
-        while (asset.available() && read < (int)sizeof(line)) {
-          read += asset.read(&buf[read], sizeof(line) - read);
-        }
+        asset.read(buf, sizeof(line));
 
         // draw the line
         tft.drawRGBBitmap(ILI9341_TFTWIDTH - x - 1, 0, line, 1, ILI9341_TFTHEIGHT);
