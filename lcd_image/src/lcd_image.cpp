@@ -39,7 +39,10 @@ void setup() {
         // each pixel is a 16 bit value, with the RGB values packed 5 bits for red, 6 bits for green, 5 bits for blue
         uint16_t line[ILI9341_TFTHEIGHT] = { 0 };
         char* buf = (char*) line;
-        asset.read(buf, sizeof(line));
+        int read = asset.read(buf, sizeof(line));
+        if (read < 0) {
+          LOG(ERROR, "Error %d reading from splash.img", read);
+        }
 
         // draw the line
         tft.drawRGBBitmap(ILI9341_TFTWIDTH - x - 1, 0, line, 1, ILI9341_TFTHEIGHT);
