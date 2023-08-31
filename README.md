@@ -6,7 +6,7 @@ Example applications using the Asset OTA functionality
 
 The [stm32_ota](/stm32_ota) project shows how to bundle a firmware binary for a coprocessor (in this case an STM32 microcontroller) and how to update the coprocessor when a new binary has been received.
 
-The application registers a callback using `System.onAssetsOta(handleAssets)`. `handleAssets` will find the firmware binary for the coprocessor, flash it, then mark the assets as handled using `System.assetsHandled(true)` so that `handleAssets` is not called on next boot.
+The application registers a callback using `System.onAssetOta(handleAssets)`. `handleAssets` will find the firmware binary for the coprocessor, flash it, then mark the assets as handled using `System.assetsHandled(true)` so that `handleAssets` is not called on next boot.
 
 ## LCD image resource
 
