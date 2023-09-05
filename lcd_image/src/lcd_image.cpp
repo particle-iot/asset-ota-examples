@@ -10,7 +10,7 @@
 
 SYSTEM_THREAD(ENABLED);
 
-PRODUCT_VERSION(2);
+PRODUCT_VERSION(3);
 
 SerialLogHandler dbg(LOG_LEVEL_NONE, {
   { "app", LOG_LEVEL_ALL }
@@ -42,6 +42,8 @@ void setup() {
         int read = asset.read(buf, sizeof(line));
         if (read < 0) {
           LOG(ERROR, "Error %d reading from splash.img", read);
+        } else if (read != sizeof(line)) {
+          LOG(ERROR, "Incomplete line read from splash.img");
         }
 
         // draw the line
