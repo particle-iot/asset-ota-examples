@@ -173,7 +173,8 @@ int flashBinary(ApplicationAsset& asset) {
 }
 
 int writeBlock(uint32_t address, uint8_t* data, uint16_t size) {
-  LOG(INFO, "Writing %d bytes to 0x%08x", size, address);
+  // Uncomment to debug write block
+  // LOG(DEBUG, "Writing %d bytes to 0x%08x", size, address);
 
   // Send the write command
   CHECK(sendCommand(WRITE_MEMORY));
