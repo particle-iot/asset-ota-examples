@@ -7,13 +7,13 @@ shortDescription: "Examples of using Asset OTA for programming external coproces
 version: 1.0.2
 models: []
 language: [ "Particle Wiring" ]
-hardwareDependencies: [ ]
-cloudServices: [ ]
-integrations:
+hardwareDependencies:
   - name: Particle MCU Development Board
     link: https://store.particle.io/collections/all-products?filter.p.product_type=Development%20Boards
     tags: [ "Boron", "Argon", "M-SoM", "Photon 2", "Muon", "Monitor One", "Tracker One", "T-SoM", "E-SoM", "P2" ]
   - name: STM32 Development board
+cloudServices: []
+integrations: []
 description: |
   Using Asset OTA to:
   - Update an external STM32 coprocessor
