@@ -1,0 +1,16 @@
+id: particle/asset-ota
+category: tutorial
+icon: particle.png
+gitrepo: https://github.com/particle-iot/asset-ota-examples
+name: "Asset OTA examples"
+shortDescription: "Examples of using Asset OTA for programming external coprocessors and peripherals"
+version: 1.0.2
+models: []
+language: [ "Particle Wiring" ]
+cloudServices: [ ]
+integrations: []
+hardwareDependencies: []
+description: |
+  Using Asset OTA to:
+  - Update an external STM32 coprocessor
+  - Update images for an external LCD display
