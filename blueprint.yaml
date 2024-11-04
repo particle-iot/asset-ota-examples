@@ -8,7 +8,7 @@ version: 1.0.2
 models: []
 language: [ "Particle Wiring" ]
 cloudServices: [ ]
-integrations: []
+integrations:
   - name: Particle MCU Development Board
     link: https://store.particle.io/collections/all-products?filter.p.product_type=Development%20Boards
     tags: [ "Boron", "Argon", "M-SoM", "Photon 2", "Muon", "Monitor One", "Tracker One", "T-SoM", "E-SoM", "P2" ]
