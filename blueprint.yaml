@@ -9,7 +9,10 @@ models: []
 language: [ "Particle Wiring" ]
 cloudServices: [ ]
 integrations: []
-hardwareDependencies: []
+  - name: Particle MCU Development Board
+    link: https://store.particle.io/collections/all-products?filter.p.product_type=Development%20Boards
+    tags: [ "Boron", "Argon", "M-SoM", "Photon 2", "Muon", "Monitor One", "Tracker One", "T-SoM", "E-SoM", "P2" ]
+  - name: STM32 Development board
 description: |
   Using Asset OTA to:
   - Update an external STM32 coprocessor
