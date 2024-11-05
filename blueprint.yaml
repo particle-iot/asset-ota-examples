@@ -15,6 +15,8 @@ hardwareDependencies:
 cloudServices: []
 integrations: []
 description: |
-  Using Asset OTA to:
-  - Update an external STM32 coprocessor
-  - Update images for an external LCD display
+  Asset OTA enables Particle devices to bundle external assets, like firmware binaries or graphical resources, into an over-the-air update, which can then be delivered to connected components. This functionality, available in Device OS 5.5.0 and later, supports assets up to 1 MB to 1.5 MB and does not consume additional data operations.
+
+  Example applications of Asset OTA include updating coprocessors and peripherals. For instance, in the STM32 OTA example, a Particle device updates an STM32 coprocessor with a new firmware binary received over the air. In the LCD image example, resources like images are bundled and delivered to display components, ensuring all assets are available before the application starts.
+
+  Asset OTA is useful for applications requiring regular updates to connected components, such as external displays or auxiliary processors, providing a unified OTA solution for Particle-based products.
