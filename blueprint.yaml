@@ -1,8 +1,7 @@
-id: particle/asset-ota
 slug: particle-asset-ota
 type: tutorial
 category: Device integration and connectivity
-expertiseLevel: ""
+expertiseLevel: "intermediate"
 tags: ["ota", "examples"]
 icon: assets/particle-logo.svg
 gitrepo: https://github.com/particle-iot/asset-ota-examples
