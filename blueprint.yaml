@@ -1,9 +1,9 @@
 slug: particle-asset-ota
-type: tutorial
+type: Tutorial
 category: Device integration and connectivity
-expertiseLevel: "intermediate"
-tags: ["coprocessor OTA", "cloud", "examples"]
-icon: assets/particle-logo.svg
+expertiseLevel: "Intermediate"
+tags: ["Coprocessor OTA", "Cloud", "Examples"]
+icon: assets/asset-ota-examples.svg
 gitrepo: https://github.com/particle-iot/asset-ota-examples
 name: "Asset OTA examples"
 shortDescription: "Examples of using Asset OTA for programming external coprocessors and peripherals"
