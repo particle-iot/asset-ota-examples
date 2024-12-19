@@ -23,6 +23,7 @@ supportedDevices:
   - name: T-SoM
   - name: E-SoM
   - name: P2
+webSetupLink: 'https://setup.particle.io/?app=particle-asset-ota'
 hardwareDependencies:
   - name: Supported device
   - name: STM32 Development board
