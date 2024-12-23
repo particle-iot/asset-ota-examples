@@ -6,7 +6,7 @@ tags: ["Coprocessor OTA", "Cloud", "Examples"]
 icon: assets/asset-ota-examples.svg
 gitrepo: https://github.com/particle-iot/asset-ota-examples
 name: "Asset OTA examples"
-shortDescription: "Examples of using Asset OTA for programming external coprocessors and peripherals"
+shortDescription: "Examples of using Asset OTA for programming external coprocessors and peripherals."
 version: 1.0.2
 models: []
 language: [ "Particle Wiring" ]
