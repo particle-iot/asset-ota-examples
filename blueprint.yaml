@@ -4,7 +4,7 @@ type: Tutorial
 category: "Device integration and connectivity"
 expertiseLevel: "Intermediate"
 tags: ["Sensors", "I2C", "Industrial"]
-icon: assets/asset-ota-examples.svg
+icon: assets/ota.svg
 gitrepo: https://github.com/particle-iot/asset-ota-examples
 name: "Asset OTA Examples"
 shortDescription: "Examples of using Asset OTA for programming external coprocessors and peripherals"
